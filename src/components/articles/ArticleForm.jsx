@@ -1,7 +1,7 @@
 import { Form, Button } from "react-bootstrap";
 import React, { useState } from "react";
 
-const ArticleForm = () => {
+const ArticleForm = ({ history }) => {
   const initialState = { title: "", text: "" };
   const [values, setValues] = useState(initialState);
 
@@ -17,10 +17,10 @@ const ArticleForm = () => {
     })
       .then((response) => {
         if (response.ok) {
-          // let the user know that it went trough
           alert("Article successfully created");
-          // when we get confirmation we can reset the form to its original state (empty)
-          setValues(initialState);
+          return response.json().then((article) => {
+            history.push(`/articles/${article._id}`);
+          });
         }
       })
       .catch((error) => alert(error));
