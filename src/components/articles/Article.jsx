@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import Comments from "./Comments";
 
 const Article = ({ history, match }) => {
   // Bootstrap Modal
@@ -28,6 +29,20 @@ const Article = ({ history, match }) => {
       })
       .catch((err) => console.error(err));
   };
+
+  // Comments
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    fetch(`/articles/${match.params.articleId}/comments`)
+      .then((res) => res.json())
+      .then((data) => {
+        // data.comments.map((c) => array.push(c));
+        console.log(data.comments);
+        setComments(data.comments);
+        console.log(comments);
+      });
+  }, []);
 
   return (
     <article>
@@ -75,6 +90,15 @@ const Article = ({ history, match }) => {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      {/* {comments.map((comment) => {
+        return (
+          <div key={comment._id}>
+            <h3>{comment.title}</h3>
+            <p>{comment.text}</p>
+          </div>
+        );
+      })} */}
     </article>
   );
 };
