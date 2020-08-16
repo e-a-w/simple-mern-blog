@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import Comments from "./Comments";
 
 const Article = ({ history, match }) => {
   // Bootstrap Modal
@@ -11,14 +12,27 @@ const Article = ({ history, match }) => {
 
   //Articles
   const [article, setArticle] = useState({});
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
+    //get article
     fetch(`/articles/${match.params.articleId}`)
       .then((response) => response.json())
       .then((article) => {
         setArticle(article);
       })
       .catch((error) => console.error(error));
+
+    //get comments for article (doesn't work without that if)
+    fetch(`/articles/${match.params.articleId}/comments`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.comments);
+        if (comments) {
+          return setComments(data.comments);
+        }
+      })
+      .catch((err) => console.error(err));
   }, []);
 
   const articleDelete = (id) => {
@@ -75,6 +89,12 @@ const Article = ({ history, match }) => {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <Comments
+        comments={comments && comments}
+        article={match.params.articleId}
+      />
+      {/* ^^ the above doesn't work without that comments && comments */}
     </article>
   );
 };

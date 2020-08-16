@@ -1,5 +1,6 @@
 const express = require("express");
 const articleRouter = require("./article/router");
+const commentRouter = require("./comment/router");
 const mongoose = require("mongoose");
 const server = express();
 const PORT = process.env.port || 4000;
@@ -23,3 +24,4 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 
 server.use("/articles", articleRouter);
+server.use("/articles/:articleId/comments", commentRouter);
