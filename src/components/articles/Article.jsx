@@ -12,14 +12,27 @@ const Article = ({ history, match }) => {
 
   //Articles
   const [article, setArticle] = useState({});
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
+    //get article
     fetch(`/articles/${match.params.articleId}`)
       .then((response) => response.json())
       .then((article) => {
         setArticle(article);
       })
       .catch((error) => console.error(error));
+
+    //get comments for article (doesn't work without that if)
+    fetch(`/articles/${match.params.articleId}/comments`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.comments);
+        if (comments) {
+          return setComments(data.comments);
+        }
+      })
+      .catch((err) => console.error(err));
   }, []);
 
   const articleDelete = (id) => {
@@ -29,20 +42,6 @@ const Article = ({ history, match }) => {
       })
       .catch((err) => console.error(err));
   };
-
-  // Comments
-  const [comments, setComments] = useState([]);
-
-  useEffect(() => {
-    fetch(`/articles/${match.params.articleId}/comments`)
-      .then((res) => res.json())
-      .then((data) => {
-        // data.comments.map((c) => array.push(c));
-        console.log(data.comments);
-        setComments(data.comments);
-        console.log(comments);
-      });
-  }, []);
 
   return (
     <article>
@@ -91,14 +90,11 @@ const Article = ({ history, match }) => {
         </Modal.Footer>
       </Modal>
 
-      {/* {comments.map((comment) => {
-        return (
-          <div key={comment._id}>
-            <h3>{comment.title}</h3>
-            <p>{comment.text}</p>
-          </div>
-        );
-      })} */}
+      <Comments
+        comments={comments && comments}
+        article={match.params.articleId}
+      />
+      {/* ^^ the above doesn't work without that comments && comments */}
     </article>
   );
 };
