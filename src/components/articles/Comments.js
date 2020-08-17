@@ -101,9 +101,21 @@ const Comments = ({ article }) => {
             .map((comment) => {
               return (
                 <tr key={comment._id}>
-                  <td>{moment(comment.createdAt).format("M-D-YY, h:mm a")}</td>
-                  <td style={{ width: "100%", whiteSpace: "pre-wrap" }}>
-                    {comment.text}
+                  <td style={{ verticalAlign: "middle" }}>
+                    {moment(comment.createdAt).format("M-D-YY, h:mm a")}
+                  </td>
+                  <td style={{ width: "100%", verticalAlign: "middle" }}>
+                    <div style={{ whiteSpace: "pre-wrap" }}>{comment.text}</div>
+                    <p
+                      style={{
+                        marginTop: "15px",
+                        fontSize: "10px",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      <b>Edited at: </b>
+                      {moment(comment.updatedAt).format("M-D-YY, h:mm a")}
+                    </p>
                   </td>
                   <td
                     style={{

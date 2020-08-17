@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, Button, Modal } from "react-bootstrap";
+import moment from "moment";
 import Comments from "./Comments";
 
 const Article = ({ history, match }) => {
@@ -36,23 +37,32 @@ const Article = ({ history, match }) => {
           <h1>{article.title}</h1>
         </Card.Header>
         <Card.Body style={{ whiteSpace: "pre-wrap" }}>{article.text}</Card.Body>
-        <Card.Footer style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button
-            style={{ marginRight: "20px" }}
-            variant="success"
-            onClick={() =>
-              history.push(`/articles/${match.params.articleId}/edit`)
-            }
-          >
-            Edit
-          </Button>
-          <Button
-            variant="danger"
-            // onClick={() => articleDelete(match.params.articleId)}
-            onClick={() => handleShow()}
-          >
-            Delete
-          </Button>
+        <Card.Footer
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
+          <p>
+            <b>Created:</b> {moment(article.createdAt).format("M-D-YY, h:mm a")}
+            <br />
+            <b>Updated:</b> {moment(article.updatedAt).format("M-D-YY, h:mm a")}
+          </p>
+          <div>
+            <Button
+              style={{ marginRight: "20px" }}
+              variant="success"
+              onClick={() =>
+                history.push(`/articles/${match.params.articleId}/edit`)
+              }
+            >
+              Edit
+            </Button>
+            <Button
+              variant="danger"
+              // onClick={() => articleDelete(match.params.articleId)}
+              onClick={() => handleShow()}
+            >
+              Delete
+            </Button>
+          </div>
         </Card.Footer>
       </Card>
       <Modal show={show} onHide={handleClose}>

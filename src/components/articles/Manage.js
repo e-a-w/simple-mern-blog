@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import { Jumbotron, Alert, Form, Card, Button, Modal } from "react-bootstrap";
 
 const Manage = ({ history }) => {
@@ -138,29 +139,45 @@ const Manage = ({ history }) => {
                   </Card.Text>
                 </Card.Body>
                 <Card.Footer
-                  style={{ display: "flex", justifyContent: "space-between" }}
+                  style={{ display: "flex", flexDirection: "column" }}
                 >
-                  <Button
-                    variant="primary"
-                    onClick={() => history.push(`/articles/${item._id}`)}
+                  <p style={{ fontSize: "12px" }}>
+                    <b>Created:</b>{" "}
+                    {moment(item.createdAt).format("M-D-YY, h:mm a")}
+                    <br />
+                    <b>Updated:</b>{" "}
+                    {moment(item.updatedAt).format("M-D-YY, h:mm a")}
+                    <br />
+                    <b>
+                      {item.comments.length} comment
+                      {item.comments.length !== 1 && "s"}
+                    </b>
+                  </p>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    Read More!
-                  </Button>
-                  <Button
-                    variant="success"
-                    onClick={() => history.push(`/articles/${item._id}/edit`)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="danger"
-                    onClick={() => {
-                      setClickedArticle(item._id);
-                      handleShow();
-                    }}
-                  >
-                    Delete
-                  </Button>
+                    <Button
+                      variant="primary"
+                      onClick={() => history.push(`/articles/${item._id}`)}
+                    >
+                      Read More!
+                    </Button>
+                    <Button
+                      variant="success"
+                      onClick={() => history.push(`/articles/${item._id}/edit`)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="danger"
+                      onClick={() => {
+                        setClickedArticle(item._id);
+                        handleShow();
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </div>
                 </Card.Footer>
               </Card>
             );

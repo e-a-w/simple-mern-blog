@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import { Link } from "react-router-dom";
-import Jumbotron from "react-bootstrap/Jumbotron";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
+import { Jumbotron, Card, Button } from "react-bootstrap";
 
 const Articles = ({ history }) => {
   const [articles, setArticles] = useState([]);
@@ -57,13 +56,24 @@ const Articles = ({ history }) => {
                     {item.text.length > 100 && "..."}
                   </Card.Text>
                 </Card.Body>
-                <Card.Footer style={{ textAlign: "center" }}>
-                  <Button
-                    variant="secondary"
-                    onClick={() => history.push(`/articles/${item._id}`)}
-                  >
-                    Read More!
-                  </Button>
+                <Card.Footer
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <p>
+                    <b>Created:</b>{" "}
+                    {moment(item.createdAt).format("M-D-YY, h:mm a")}
+                    <br />
+                    <b>Updated:</b>{" "}
+                    {moment(item.updatedAt).format("M-D-YY, h:mm a")}
+                  </p>
+                  <div>
+                    <Button
+                      variant="secondary"
+                      onClick={() => history.push(`/articles/${item._id}`)}
+                    >
+                      Read More!
+                    </Button>
+                  </div>
                 </Card.Footer>
               </Card>
             );

@@ -26,7 +26,7 @@ const Search = ({ history }) => {
         </p>
       </Jumbotron>
       <Form onSubmit={(e) => e.preventDefault()}>
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group>
           <Form.Control
             onChange={(e) => setSearchTerm(e.target.value)}
             size="lg"
