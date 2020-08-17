@@ -7,6 +7,7 @@ import ArticleForm from "./components/articles/ArticleForm";
 import PageNavbar from "./components/navbar/PageNavbar";
 import Search from "./components/search/Search";
 import Manage from "./components/articles/Manage";
+import Home from "./components/articles/Home";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <PageNavbar />
       <Container style={{ marginTop: "100px" }}>
         <Switch>
+          <Route exact path="/" component={Home} />
           <Route exact path="/articles" component={Articles} />
           <Route exact path="/articles/new" component={ArticleForm} />
           <Route

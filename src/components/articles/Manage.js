@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Jumbotron from "react-bootstrap/Jumbotron";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
-import Alert from "react-bootstrap/Alert";
+import { Jumbotron, Alert, Form, Card, Button, Modal } from "react-bootstrap";
 
 const Manage = ({ history }) => {
   // Bootstrap Modal
@@ -51,7 +46,9 @@ const Manage = ({ history }) => {
   };
 
   const articleDelete = (id) => {
-    fetch(`/articles/${id}`, { method: "DELETE" });
+    fetch(`/articles/${id}`, { method: "DELETE" }).catch((err) =>
+      console.error(err)
+    );
   };
 
   useEffect(() => {
@@ -107,10 +104,6 @@ const Manage = ({ history }) => {
             Delete All Checked Articles
           </Button>
         )}
-
-        {/* <Button variant="danger" onClick={() => deleteAll()}>
-          Delete All Checked Articles
-        </Button> */}
       </Jumbotron>
       <div
         style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}

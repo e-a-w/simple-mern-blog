@@ -17,7 +17,7 @@ const Articles = ({ history }) => {
           if (articles) {
             return setArticles(articles);
           } else {
-            return null;
+            history.push("/");
           }
         }
       })

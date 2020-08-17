@@ -14,7 +14,7 @@ const ArticleForm = ({ match, history }) => {
           setValues({ ...values, title: data.title, text: data.text });
         });
     }
-  }, []);
+  }, [match.params.articleId]);
 
   //submit edited values OR submit new values
   const handleSubmit = (e) => {

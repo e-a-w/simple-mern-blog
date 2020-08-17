@@ -12,7 +12,7 @@ const PageNavbar = () => {
       variant="dark"
       fixed="top"
     >
-      <Navbar.Brand href="#home">MERN Blog</Navbar.Brand>
+      <Navbar.Brand href="/">MERN Blog</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
